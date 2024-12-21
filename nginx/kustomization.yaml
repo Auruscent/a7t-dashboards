@@ -1,0 +1,25 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Global options
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    grafana_dashboard: "1"
+commonAnnotations:
+  grafana_folder: "Nginx"
+  kustomize.toolkit.fluxcd.io/substitute: disabled
+
+# Generate a ConfigMap for each dashboard
+configMapGenerator:
+  - name: dashboard-request-handling-performance
+    files:
+      - https://raw.githubusercontent.com/kubernetes/ingress-nginx/refs/heads/main/deploy/grafana/dashboards/request-handling-performance.json
+
+  - name: dashboard-nginx
+    files:
+      - https://raw.githubusercontent.com/kubernetes/ingress-nginx/refs/heads/main/deploy/grafana/dashboards/nginx.json
+
+  - name: dashboard-ingress-nextgen
+    files:
+      - ingress-nextgen.json=https://grafana.com/api/dashboards/14314/revisions/2/download

@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Global options
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    grafana_dashboard: "1"
+commonAnnotations:
+  grafana_folder: "KeyCloak"
+  kustomize.toolkit.fluxcd.io/substitute: disabled
+
+# Generate a ConfigMap for each dashboard
+configMapGenerator:
+  - name: dashboard-keycloak
+    files:
+      - keycloak.json=https://grafana.com/api/dashboards/14390/revisions/6/download
