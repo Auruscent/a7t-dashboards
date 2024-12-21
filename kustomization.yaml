@@ -4,6 +4,7 @@ resources:
   - dotdc
   - flux
   - keycloak
+  - mongodb
   - nginx
   - postgres
   - rabbitmq
